@@ -57,6 +57,7 @@ export const actions = {
       'SELECT author_id FROM images WHERE id = ?',
       [params.id]
     );
+    
 
     if (!rows[0] || rows[0].author_id !== locals.user.id) {
       return fail(403, { error: 'You can only delete your own images.' });
