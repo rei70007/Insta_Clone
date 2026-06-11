@@ -25,6 +25,7 @@ export async function load({ locals }) {
   return { images, users, currentUser: locals.user };
 }
 
+
 export const actions = {
   // Delete any image
   deleteImage: async ({ request, locals }) => {
