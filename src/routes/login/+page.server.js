@@ -18,6 +18,7 @@ export const actions = {
             'SELECT * FROM users WHERE username = ?',
             [username]
         );
+
  
         if (rows.length === 0) {
             return fail(400, { error: 'Wrong username or password' });
