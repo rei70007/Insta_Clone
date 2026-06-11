@@ -130,7 +130,6 @@
                    Delete
                 </button>
               </form>
-
             </div>
           </div>
         {/each}
