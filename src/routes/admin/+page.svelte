@@ -127,7 +127,7 @@
                   class="w-full text-xs font-bold text-red-400 bg-red-50 hover:bg-red-100 py-1.5 rounded-lg transition-colors"
                   onclick={(e) => { if (!confirm('Delete this image?')) e.preventDefault(); }}
                 >
-                  🗑️ Delete
+                   Delete
                 </button>
               </form>
 

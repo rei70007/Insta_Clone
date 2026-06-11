@@ -25,3 +25,16 @@ export async function load() {
   return { latest, top };
 }
 
+// Logout action lives here on the homepage
+export const actions = {
+  logout: async ({ cookies }) => {
+    const sessionId = cookies.get('session');
+
+    if (sessionId) {
+      await db.execute('DELETE FROM sessions WHERE id = ?', [sessionId]);
+      cookies.delete('session', { path: '/' });
+    }
+
+    redirect(303, '/');
+  }
+};
