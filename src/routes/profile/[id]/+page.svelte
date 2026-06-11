@@ -86,5 +86,4 @@
       <p class="text-sm text-gray-400 mt-1">This creator hasn't published any imagery portfolios.</p>
     </div>
   {/if}
-
 </div>
