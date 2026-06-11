@@ -37,4 +37,6 @@
       Don't have an account? <a href="/register" class="text-pink-500 font-semibold hover:underline">Sign up</a>
     </p>
   </form>
+  
 </div>
+
