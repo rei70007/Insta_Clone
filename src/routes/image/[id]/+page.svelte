@@ -17,7 +17,6 @@
     </div>
 
     <div class="p-6 sm:p-8">
-      
       <div class="flex items-center justify-between border-b border-gray-100 pb-4 mb-4">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-full bg-pink-50 text-pink-600 font-bold flex items-center justify-center text-sm border border-pink-100 uppercase">
