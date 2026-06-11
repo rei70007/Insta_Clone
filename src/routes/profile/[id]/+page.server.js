@@ -16,6 +16,7 @@ export async function load({ params }) {
      ORDER BY created_at DESC`,
     [params.id]
   );
+  
 
   return { profileUser, images };
 }
