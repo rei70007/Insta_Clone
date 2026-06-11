@@ -22,6 +22,7 @@ export const actions = {
     if (!file.type.startsWith('image/')) {
       return fail(400, { error: 'Only image files are allowed.' });
     }
+    
 
     // Pass the token explicitly
     const blob = await put(file.name, file, {
