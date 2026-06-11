@@ -20,6 +20,7 @@ export const actions = {
         error: 'Password must be at least 6 characters.'
       });
     }
+    
 
     const hash = await bcrypt.hash(password, 10);
 
