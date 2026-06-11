@@ -66,4 +66,5 @@ export const actions = {
     await db.execute('DELETE FROM images WHERE id = ?', [params.id]);
     redirect(303, '/');
   }
+  
 };
