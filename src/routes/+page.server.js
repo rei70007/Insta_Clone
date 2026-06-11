@@ -1,19 +1,27 @@
-
-import { db } from '$lib/db.js';
+import  db  from '$lib/server/db.js';
+import { redirect } from '@sveltejs/kit';
 
 export async function load() {
-  // Neueste 25 Bilder
-  const [images] = await db.execute(
-    `SELECT i.id, i.image, i.description, i.votes, u.username
-     FROM images i JOIN users u ON u.id = i.author_id
-     ORDER BY i.created_at DESC LIMIT 25`
+  // Latest 25 images
+  const [latest] = await db.execute(
+    `SELECT images.id, images.image, images.description, images.votes, images.created_at,
+            users.username, users.id AS author_id
+     FROM images
+     JOIN users ON images.author_id = users.id
+     ORDER BY images.created_at DESC
+     LIMIT 25`
   );
 
-  // Top 5 nach Votes
+  // Top 10 most voted
   const [top] = await db.execute(
-    `SELECT id, image, description, votes FROM images
-     ORDER BY votes DESC LIMIT 5`
+    `SELECT images.id, images.image, images.description, images.votes,
+            users.username, users.id AS author_id
+     FROM images
+     JOIN users ON images.author_id = users.id
+     ORDER BY images.votes DESC
+     LIMIT 10`
   );
 
-  return { images, top };
+  return { latest, top };
 }
+

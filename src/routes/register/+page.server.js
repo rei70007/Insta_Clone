@@ -1,30 +1,45 @@
+import  db  from '$lib/server/db.js';
+import bcrypt from 'bcrypt';
 import { fail, redirect } from '@sveltejs/kit';
-import { db } from '$lib/db.js';
 
 export const actions = {
-  default: async ({ request, cookies }) => {
-    const form = await request.formData();
-    const username = form.get('username');
-    const password = form.get('password');
+  register: async ({ request }) => {
+    const data = await request.formData();
 
-    const [existing] = await db.execute(
-      'SELECT id FROM users WHERE username = ?', [username]
-    );
-    if (existing.length > 0)
-      return fail(409, { error: 'Benutzername bereits vergeben.' });
+    const username = data.get('username');
+    const password = data.get('password');
+
+    if (!username || !password) {
+      return fail(400, {
+        error: 'All fields are required.'
+      });
+    }
+
+    if (password.length < 6) {
+      return fail(400, {
+        error: 'Password must be at least 6 characters.'
+      });
+    }
 
     const hash = await bcrypt.hash(password, 10);
-    const [result] = await db.execute(
-      'INSERT INTO users (username, password_hash) VALUES (?, ?)', [username, hash]
-    );
 
-    const id = randomUUID();
-    await db.execute(
-      'INSERT INTO sessions (id, user_id, expires_at) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY))',
-      [id, result.insertId]
-    );
+    try {
+      await db.execute(
+        'INSERT INTO users (username, password_hash) VALUES (?, ?)',
+        [username, hash]
+      );
+    } catch (err) {
+      if (err.code === 'ER_DUP_ENTRY') {
+        return fail(400, {
+          error: 'Username already taken.'
+        });
+      }
 
-    cookies.set('session', id, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 * 7 });
-    throw redirect(302, '/');
+      return fail(500, {
+        error: 'Something went wrong.'
+      });
+    }
+
+    throw redirect(303, '/login');
   }
 };
