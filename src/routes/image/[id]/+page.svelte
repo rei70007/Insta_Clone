@@ -3,7 +3,7 @@
   const { data, form } = $props();
 
   // Bild, Kommentare und eingeloggten Benutzer extrahieren
-  const { image, comments, user } = data;
+  const { image, comments, user, hasVoted } = data;
 
   // Zustand für die Löschbestätigung
   let showDeleteConfirm = $state(false);
@@ -83,16 +83,21 @@
           </span>
 
           <!-- Upvote-Button -->
-          {#if user}
-            <form method="POST" action="?/upvote">
-              <button class="inline-flex items-center gap-1.5 bg-gray-900 hover:bg-gray-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all duration-200 active:scale-95 shadow-sm">
-                Upvote
-              </button>
-            </form>
+        {#if user}
+          {#if hasVoted}
+    <!-- Bereits gevotet: ausgegraut -->
+    <span class="inline-flex items-center gap-1.5 bg-gray-100 text-gray-400 text-xs font-bold px-4 py-2.5 rounded-xl cursor-not-allowed">
+      ✓ Voted
+    </span>
+          {:else}
+    <form method="POST" action="?/upvote">
+      <button class="inline-flex items-center gap-1.5 bg-gray-900 hover:bg-gray-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all duration-200 active:scale-95 shadow-sm">
+        Upvote
+      </button>
+      </form>
           {/if}
-
+             {/if}
         </div>
-
         <!-- Löschen nur für den Autor -->
         {#if user && user.id === image.author_id}
 
