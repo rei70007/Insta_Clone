@@ -1,40 +1,78 @@
 <script>
+  // Form-Daten von SvelteKit empfangen
   let { form } = $props();
 </script>
 
+<!-- Container für das Registrierungsformular -->
 <div class="max-w-sm mx-auto mt-16">
-  <h1 class="text-[#0d1117] text-4xl font-black tracking-tight text-center mb-6">Revi</h1>
 
+  <!-- Titel der Seite -->
+  <h1 class="text-[#0d1117] text-4xl font-black tracking-tight text-center mb-6">
+    Revi
+  </h1>
+
+  <!-- Fehlermeldung anzeigen, falls vorhanden -->
   {#if form?.error}
     <p class="bg-red-50 border border-red-200 text-red-600 rounded px-4 py-3 mb-4 text-sm text-center">
       {form.error}
     </p>
   {/if}
 
-  <form action="?/register" method="POST" class="bg-white border border-gray-300 rounded p-10 flex flex-col gap-3">
+  <!-- Registrierungsformular -->
+  <form
+    action="?/register"
+    method="POST"
+    class="bg-white border border-gray-300 rounded p-10 flex flex-col gap-3"
+  >
+
+    <!-- Eingabefeld für den Benutzernamen -->
     <div class="flex flex-col gap-1">
-      <input type="text" name="username" required
+      <input
+        type="text"
+        name="username"
+        required
         placeholder="Username"
         class="border border-gray-300 rounded bg-gray-50 px-3 py-2 text-xs focus:outline-none focus:border-gray-400 placeholder-gray-400"
       />
     </div>
+
+    <!-- Eingabefeld für das Passwort -->
     <div class="flex flex-col gap-1">
-      <input type="password" name="password" required minlength="6"
+      <input
+        type="password"
+        name="password"
+        required
+        minlength="6"
         placeholder="Password"
         class="border border-gray-300 rounded bg-gray-50 px-3 py-2 text-xs focus:outline-none focus:border-gray-400 placeholder-gray-400"
       />
     </div>
-    <button type="submit"
-      class="bg-pink-500 hover:bg-pink-600 text-white rounded-lg py-1.5 text-sm font-semibold transition cursor-pointer mt-1">
+
+    <!-- Button zum Absenden des Formulars -->
+    <button
+      type="submit"
+      class="bg-pink-500 hover:bg-pink-600 text-white rounded-lg py-1.5 text-sm font-semibold transition cursor-pointer mt-1"
+    >
       Sign up
     </button>
+
+    <!-- Trennlinie mit OR -->
     <div class="flex items-center gap-3 my-1">
       <span class="flex-1 h-px bg-gray-300"></span>
       <span class="text-xs font-semibold text-gray-400 tracking-widest">OR</span>
       <span class="flex-1 h-px bg-gray-300"></span>
     </div>
+
+    <!-- Link zur Login-Seite -->
     <p class="text-sm text-gray-500 text-center">
-      Already have an account? <a href="/login" class="text-pink-500 font-semibold hover:underline">Log in</a>
+      Already have an account?
+      <a
+        href="/login"
+        class="text-pink-500 font-semibold hover:underline"
+      >
+        Log in
+      </a>
     </p>
+
   </form>
 </div>
